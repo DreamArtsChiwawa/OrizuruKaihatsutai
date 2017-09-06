@@ -3,11 +3,12 @@ import os
 # sys.path.append(os.pardir)
 # print(os.pardir)
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/../AI")
-# import search
+import search
+import train
 
-def get_text():
-   text = [("./to/dir/a.mes.utf","A部門 すぎた",0.8111),("./to/dir/a.mes.utf","A部門 すずき",0.5111),("./to/dir/a.mes.utf","B部門 やまだ",0.38),("./to/dir/a.mes.utf","C部門 たろう",0.01),("./to/dir/a.mes.utf","B部門 やまだ",0.18),("./to/dir/a.mes.utf","C部門 たろう",0.01),("./to/dir/a.mes.utf","B部門 やまだ",0.18),("./to/dir/a.mes.utf","C部門 たろう",0.01)]
-   return text
+#def get_text():
+#   text = [("./to/dir/a.mes.utf","A部門 すぎた",0.8111),("./to/dir/a.mes.utf","A部門 すずき",0.5111),("./to/dir/a.mes.utf","B部門 やまだ",0.38),("./to/dir/a.mes.utf","C部門 たろう",0.01),("./to/dir/a.mes.utf","B部門 やまだ",0.18),("./to/dir/a.mes.utf","C部門 たろう",0.01),("./to/dir/a.mes.utf","B部門 やまだ",0.18),("./to/dir/a.mes.utf","C部門 たろう",0.01)]
+#   return text
 
 #AI側からのレコメンド結果を受け取る
 def get_top3(message):

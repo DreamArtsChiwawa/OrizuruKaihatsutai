@@ -8,8 +8,8 @@ app = Flask(__name__)
 env = os.environ
 import parce_rec as pr
 
-a = pr.get_top3()
-print(a)
+#a = pr.get_top3()
+#print(a)
 
 
 @app.route('/', methods=['GET'])
@@ -25,6 +25,8 @@ def messages():
             groupId = msgObj['groupId']
             messageText = msgObj['text']
             userName = msgObj['createdUserName']
+            # AIに送るための関数などを作り、知話輪から受信したデータをAIに送る処理と結果を受け取る処理を記述する（結果は配列で帰ってくる）
+            # メッセージを作るための変数を作る
             send_message(companyId, groupId, userName + 'さん、' + messageText + 'ありがとう！あなたが抱えている課題は以前、この人も抱えていたみたいだから聞いてみると解決するかもしれないよ。')
             print(body)
             return "OK"
