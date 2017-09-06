@@ -32,17 +32,17 @@ def trim_doc(doc):
             .replace("=","").replace("■","---").replace("◎", "")
 
     m = re.search(r"Request(.*)---Highlight", extracted_text)
-    if m:    
+    if m:
         tmp_text = m.group(1)
     else:
         tmp_text = ''
 
-    m2 = re.search(r"Subject:(.*)(Message|Cc)", extracted_text)     
+    m2 = re.search(r"Subject:(.*)(Message|Cc)", extracted_text)
     if m2:
         tmp_name = m2.group(1)
 
-    tmp_name = re.sub(r'\s', "", tmp_name)     
-    
+    tmp_name = re.sub(r'\s', "", tmp_name)
+
     return (tmp_text, tmp_name)
 
 

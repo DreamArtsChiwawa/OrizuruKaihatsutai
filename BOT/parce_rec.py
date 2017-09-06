@@ -4,7 +4,7 @@ from ../AI/search.py import search_similar_docs
 #    return text
 
 #AI側からのレコメンド結果を受け取る
-def return_top3(message):
+def get_top3(message):
     text = message
     rec = []
     for i in text:
@@ -15,5 +15,5 @@ def return_top3(message):
     return rec
 
 #sim_list = search_similar_docs()
-#rec = return_top3(sim_list)
+#rec = get_top3(sim_list)
 #print(rec)
