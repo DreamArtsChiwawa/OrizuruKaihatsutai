@@ -83,8 +83,10 @@ def send_message(companyId, groupId, message):
     requests.post(url, headers=headers, data=json.dumps(content))
 
 def read_wr(path):
+    wr_text = ""
     with open(path) as f:
-        print(f.read())
+        wr_text +=
+    return wr_text
 
 
 if __name__ == '__main__':
