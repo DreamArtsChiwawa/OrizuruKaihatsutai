@@ -5,6 +5,11 @@ import requests
 from flask import Flask, request
 app = Flask(__name__)
 env = os.environ
+import parce_rec as pr
+
+a = pr.get_top3()
+print(a)
+
 
 @app.route('/', methods=['GET'])
 def helloPage():
