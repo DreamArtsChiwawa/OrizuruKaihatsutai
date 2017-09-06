@@ -25,10 +25,11 @@ def messages():
             # AIに送るための関数などを作り、知話輪から受信したデータをAIに送る処理と結果を受け取る処理を記述する（結果は配列で帰ってくる
             # メッセージを作るための変数を作る
             ans = search.search_similar_docs(messageText,3)
+            print("==========================")
             print(ans)
             sndMsgText = '1. ' + '\n2. ' + '\n3. '
-            send_message(companyId, groupId, userName + 'さん、週報を書いてくれてありがとう！あなたが抱えている課題は以前、この人も抱えていたみたいだから聞いてみると解決するかもしれないよ。\n' + sndMsgText)
-            print(body)
+            # send_message(companyId, groupId, userName + 'さん、週報を書いてくれてありがとう！あなたが抱えている課題は以前、この人も抱えていたみたいだから聞いてみると解決するかもしれないよ。\n' + sndMsgText)
+            # print(body)
             return "OK"
         else:
             return "Request is not valid."
@@ -58,18 +59,18 @@ def send_message(companyId, groupId, message):
     }
     content = {
         'text' : message,
-        'attachments': [
-            {
-                'attachmentId': 'slct1',
-                'viewType': 'text',
-                'title': 'yasuhisa',
-                'text': "メッセージがはいります。"
-        },{
-                'attachmentId': 'slct2',
-                'viewType': 'text',
-                'title': 'Mana',
-                'text': "メッセージがはいります。"
-        }],
+        # 'attachments': [
+        #     {
+        #         'attachmentId': 'slct1',
+        #         'viewType': 'text',
+        #         'title': 'yasuhisa',
+        #         'text': "メッセージがはいります。"
+        # },{
+        #         'attachmentId': 'slct2',
+        #         'viewType': 'text',
+        #         'title': 'Mana',
+        #         'text': "メッセージがはいります。"
+        # }],
     }
     print(json.dumps(content))
     requests.post(url, headers=headers, data=json.dumps(content))
