@@ -67,17 +67,17 @@ def send_message(companyId, groupId, message):
                  'attachmentId': 'slct1',
                  'viewType': 'text',
                  'title': ans[0][1] + "さん",
-                 'text': ans[0][1] +"さんのwrのパスは" +  ans[0][0] + "にあります。"
+                 'text': wr[0]
         },{
                  'attachmentId': 'slct2',
                  'viewType': 'text',
                  'title': ans[1][1] + "さん",
-                 'text':  ans[1][1] +"さんのwrのパスは" +  ans[1][0] + "にあります。"
+                 'text':  wr[1]
          },{
                  'attachmentId': 'slct3',
                  'viewType': 'text',
                  'title': ans[2][1] + "さん",
-                 'text':  ans[2][1] +"さんのwrのパスは" +  ans[2][0] + "にあります。"
+                 'text':  wr[2]
          }],
     }
     requests.post(url, headers=headers, data=json.dumps(content))
@@ -85,7 +85,7 @@ def send_message(companyId, groupId, message):
 def read_wr(path):
     wr_text = ""
     with open(path) as f:
-        wr_text +=
+        wr_text += f.read()
     return wr_text
 
 
