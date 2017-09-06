@@ -1,4 +1,10 @@
-from ..AI import search
+import sys
+import os
+# sys.path.append(os.pardir)
+# print(os.pardir)
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/../AI")
+
+import search
 #def get_text():
 #    text = [("./to/dir/a.mes.utf","A部門 すぎた",0.8111),("./to/dir/a.mes.utf","A部門 すずき",0.5111),("./to/dir/a.mes.utf","B部門 やまだ",0.38),("./to/dir/a.mes.utf","C部門 たろう",0.01),("./to/dir/a.mes.utf","B部門 やまだ",0.18),("./to/dir/a.mes.utf","C部門 たろう",0.01),("./to/dir/a.mes.utf","B部門 やまだ",0.18),("./to/dir/a.mes.utf","C部門 たろう",0.01)]
 #    return text
@@ -14,6 +20,6 @@ def get_top3(message):
             break
     return rec
 
-sim_list = search_similar_docs()
+sim_list = search.search_similar_docs()
 rec = get_top3(sim_list)
-#print(rec)
+print(rec)
