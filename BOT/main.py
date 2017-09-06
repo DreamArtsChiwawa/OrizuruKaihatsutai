@@ -27,7 +27,8 @@ def messages():
             userName = msgObj['createdUserName']
             # AIに送るための関数などを作り、知話輪から受信したデータをAIに送る処理と結果を受け取る処理を記述する（結果は配列で帰ってくる
             # メッセージを作るための変数を作る
-            ans = search.search_similar_docs(messageText,3)
+            #ans = search.search_similar_docs(messageText,3)
+            ans = search.search_similar_docs(messageText)
             print("==========================")
             print(ans)
             sndMsgText = '1. ' + '\n2. ' + '\n3. '
