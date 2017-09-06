@@ -58,13 +58,18 @@ def send_message(companyId, groupId, message):
          {
                  'attachmentId': 'slct1',
                  'viewType': 'text',
-                 'title': ans[0][0],
-                 'text': "メッセージがはいります。"
+                 'title': ans[0][1] + "さん",
+                 'text': ans[0][1] +"さんのwrのパスは" +  ans[0][0] + "にあります。"
         },{
                  'attachmentId': 'slct2',
                  'viewType': 'text',
                  'title': ans[1][1] + "さん",
                  'text':  ans[1][1] +"さんのwrのパスは" +  ans[1][0] + "にあります。"
+         },{
+                 'attachmentId': 'slct2',
+                 'viewType': 'text',
+                 'title': ans[2][1] + "さん",
+                 'text':  ans[2][1] +"さんのwrのパスは" +  ans[2][0] + "にあります。"
          }],
     }
     requests.post(url, headers=headers, data=json.dumps(content))
