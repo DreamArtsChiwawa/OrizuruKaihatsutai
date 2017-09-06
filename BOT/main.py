@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-import os
+import sys,os
 import json
 import requests
 from flask import Flask, request
