@@ -6,6 +6,9 @@ import requests
 from flask import Flask, request
 app = Flask(__name__)
 env = os.environ
+# BASE DIRECTORY SETTING
+bs = os.getcwd() + '/../AI'
+sys.path.append(bs)
 import search
 import train
 
