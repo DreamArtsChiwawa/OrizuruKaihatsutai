@@ -9,7 +9,7 @@ import re
 from gensim import models
 from gensim.models.doc2vec import LabeledSentence
 
-INPUT_DOC_DIR = '../data/'
+INPUT_DOC_DIR = '../../staff_wr/'
 OUTPUT_MODEL = 'doc2vec.model'
 PASSING_PRECISION = 93
 
@@ -30,20 +30,20 @@ def read_document(path):
 def trim_doc(doc):
     extracted_text = re.sub(r'(-|=)', '', doc)
     m1 = re.search(r"Request([\s\S]*?)Highlight", extracted_text)
-    if m1:    
+    if m1:
         tmp_text = m1.group(1)
     else:
         tmp_text = ''
 
 
-    m2 = re.search(r"Subject:([\s\S]*?)(Message|Cc)", extracted_text)     
+    m2 = re.search(r"Subject:([\s\S]*?)(Message|Cc)", extracted_text)
     tmp_name = m2.group(1)
-    m3 = re.search(r"\d{4}.?\d{,2}.?\d{,2}.?(.*)-?", tmp_name)  
+    m3 = re.search(r"\d{4}.?\d{,2}.?\d{,2}.?(.*)-?", tmp_name)
     if m3:
         tmp_name = m3.group(1)
 
-    tmp_name = re.sub(r'\s', "", tmp_name)     
-    
+    tmp_name = re.sub(r'\s', "", tmp_name)
+
     return (tmp_text, tmp_name)
 
 
