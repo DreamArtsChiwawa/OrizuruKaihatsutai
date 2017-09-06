@@ -6,11 +6,8 @@ import requests
 from flask import Flask, request
 app = Flask(__name__)
 env = os.environ
-import parce_rec as pr
-
-#a = pr.get_top3()
-#print(a)
-
+import search
+import train
 
 @app.route('/', methods=['GET'])
 def helloPage():
@@ -25,16 +22,26 @@ def messages():
             groupId = msgObj['groupId']
             messageText = msgObj['text']
             userName = msgObj['createdUserName']
-            # AIに送るための関数などを作り、知話輪から受信したデータをAIに送る処理と結果を受け取る処理を記述する（結果は配列で帰ってくる）
-
+            # AIに送るための関数などを作り、知話輪から受信したデータをAIに送る処理と結果を受け取る処理を記述する（結果は配列で帰ってくる
             # メッセージを作るための変数を作る
-            sndMsgText = '1. ' + '\n2. ' + '\n3. ''
+            ans = search.search_similar_docs(messageText,3)
+            print(ans)
+            sndMsgText = '1. ' + '\n2. ' + '\n3. '
             send_message(companyId, groupId, userName + 'さん、週報を書いてくれてありがとう！あなたが抱えている課題は以前、この人も抱えていたみたいだから聞いてみると解決するかもしれないよ。\n' + sndMsgText)
             print(body)
             return "OK"
         else:
             return "Request is not valid."
 
+
+
+def send_ai(msg):
+    if is_request_valid(request):
+        body = request.get_json(silent=True)
+        messageText = msgObj['text']
+        # AIに送るための関数などを作り、知話輪から受信したデータをAIに送る処理と結果を受け取る処理を記述する（結果は配列で帰ってくる）
+
+        # メッセージを作るための変数を作る
 
 # Check if token is valid.
 def is_request_valid(request):
