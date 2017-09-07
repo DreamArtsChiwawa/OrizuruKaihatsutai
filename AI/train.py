@@ -9,7 +9,11 @@ import re
 from gensim import models
 from gensim.models.doc2vec import LabeledSentence
 
+<<<<<<< HEAD
+INPUT_DOC_DIR = '../../staff_wr'
+=======
 INPUT_DOC_DIR = '../../staff_wr/'
+>>>>>>> ed8051eac4ec3c575f9cc0853973c89e63111977
 OUTPUT_MODEL = 'doc2vec.model'
 PASSING_PRECISION = 93
 
@@ -17,8 +21,9 @@ PASSING_PRECISION = 93
 def get_all_files(directory):
     for root, dirs, files in os.walk(directory):
         for file in files:
-            _, ext = os.path.splitext(file)
-            if ext == ".utf":
+            filename = os.path.basename(path)
+            m = re.match(r'\d+\.mes\.utf', filename)
+            if m:
                 yield os.path.join(root, file)
 
 # ファイルから文章を返す
@@ -29,13 +34,31 @@ def read_document(path):
 # 青空文庫ファイルから作品部分のみ抜き出す
 def trim_doc(doc):
     extracted_text = re.sub(r'(-|=)', '', doc)
+
+    # Request-Highlight間を抽出
     m1 = re.search(r"Request([\s\S]*?)Highlight", extracted_text)
     if m1:
         tmp_text = m1.group(1)
     else:
-        tmp_text = ''
+        tmp_text = extracted_text
 
+<<<<<<< HEAD
+    # メールの件名部分を抽出
+    m2 = re.search(r"Subject:([\s\S]*?)(Message|Cc)", extracted_text)     
+    if m2:
+        tmp_name = m2.group(1)
+    else:
+        tmp_name = ''
 
+    # 件名部分から日付を取り除く(部署＋名前の抽出)
+    m3 = re.search(r"\d{4}.?\d{,2}.?\d{,2}.?(.*)-?", tmp_name)  
+    if m3:
+        tmp_name = m3.group(1)
+
+    # 部署＋名前から空白を取り除く
+    tmp_name = re.sub(r'\s', "", tmp_name)     
+    
+=======
     m2 = re.search(r"Subject:([\s\S]*?)(Message|Cc)", extracted_text)
     tmp_name = m2.group(1)
     m3 = re.search(r"\d{4}.?\d{,2}.?\d{,2}.?(.*)-?", tmp_name)
@@ -44,6 +67,7 @@ def trim_doc(doc):
 
     tmp_name = re.sub(r'\s', "", tmp_name)
 
+>>>>>>> ed8051eac4ec3c575f9cc0853973c89e63111977
     return (tmp_text, tmp_name)
 
 
