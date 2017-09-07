@@ -17,7 +17,7 @@ PASSING_PRECISION = 93
 def get_all_files(directory):
     for root, dirs, files in os.walk(directory):
         for file in files:
-            filename = sys.path.basename(path)
+            filename = sys.path.basename(file)
             m = re.match(r'\d+\.mes\.utf', filename)
             if m:
                 yield os.path.join(root, file)
