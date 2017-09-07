@@ -9,11 +9,7 @@ import re
 from gensim import models
 from gensim.models.doc2vec import LabeledSentence
 
-<<<<<<< HEAD
-INPUT_DOC_DIR = '../../staff_wr'
-=======
 INPUT_DOC_DIR = '../../staff_wr/'
->>>>>>> ed8051eac4ec3c575f9cc0853973c89e63111977
 OUTPUT_MODEL = 'doc2vec.model'
 PASSING_PRECISION = 93
 
@@ -42,7 +38,6 @@ def trim_doc(doc):
     else:
         tmp_text = extracted_text
 
-<<<<<<< HEAD
     # メールの件名部分を抽出
     m2 = re.search(r"Subject:([\s\S]*?)(Message|Cc)", extracted_text)     
     if m2:
@@ -58,16 +53,6 @@ def trim_doc(doc):
     # 部署＋名前から空白を取り除く
     tmp_name = re.sub(r'\s', "", tmp_name)     
     
-=======
-    m2 = re.search(r"Subject:([\s\S]*?)(Message|Cc)", extracted_text)
-    tmp_name = m2.group(1)
-    m3 = re.search(r"\d{4}.?\d{,2}.?\d{,2}.?(.*)-?", tmp_name)
-    if m3:
-        tmp_name = m3.group(1)
-
-    tmp_name = re.sub(r'\s', "", tmp_name)
-
->>>>>>> ed8051eac4ec3c575f9cc0853973c89e63111977
     return (tmp_text, tmp_name)
 
 
