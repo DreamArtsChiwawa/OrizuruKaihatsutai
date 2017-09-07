@@ -27,9 +27,9 @@ def messages():
             userName = msgObj['createdUserName']
             ans = search.search_similar_docs(messageText,3)
             sndMsgText = '1. ' + ans[0][1] + "さん" + '\n2. ' + ans[1][1] + "さん" + '\n3. ' + ans[2][1] + "さん"
-            print(messageText)
-            if ("tell" in messageText) and ("me" in messageText)
-                "called tell_me()"
+#            print(messageText)
+            if "/tell_me" in messageText or "/tell me" in messageText:
+                print("called tell_me()")
                 tell_me(companyId, groupId, userName)
             else:
                 send_message(companyId, groupId, userName + 'さん、週報を書いてくれてありがとう！あなたが抱えている課題は以前、この人も抱えていたみたいだから聞いてみると解決するかもしれないよ。\n' + sndMsgText)
