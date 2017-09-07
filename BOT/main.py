@@ -28,12 +28,14 @@ def messages():
             if "/tell-me" in messageText or "/tellme" in messageText or "/tell_me" in messageText or "/tell me" in messageText:
                 if "/tell me" in messageText:
                     msg = get_problem(messageText,2)
+                    print(msg)
                     ans = search.search_similar_docs(msg,3)
                     sndMsgText = '1. ' + ans[0][1] + "さん" + '\n2. ' + ans[1][1] + "さん" + '\n3. ' + ans[2][1] + "さん"
                     send_message2(companyId, groupId, userName + 'さん、その問題解決するかも!!\n' + sndMsgText)
                     print("/tell me")
                 else:
                     msg = get_problem(messageText,1)
+                    print(msg)
                     ans = search.search_similar_docs(msg,3)
                     sndMsgText = '1. ' + ans[0][1] + "さん" + '\n2. ' + ans[1][1] + "さん" + '\n3. ' + ans[2][1] + "さん"
                     send_message2(companyId, groupId, userName + 'さん、その問題解決するかも!!\n' + sndMsgText)
@@ -96,8 +98,10 @@ def send_message2(companyId, groupId, message):
     body = request.get_json(silent=True)
     msgObj = body['message']
     messageText = msgObj['text']
-    # msg = get_problem(messageText,2)
-    # ans = search.search_similar_docs(msg,3)
+    msg = get_problem(messageText,2)
+    print(msg)
+    ans = search.search_similar_docs(msg,3)
+    print(ans)
     url = 'https://{0}.chiwawa.one/api/public/v1/groups/{1}/messages'.format(companyId, groupId)
 
     wr = []
@@ -115,17 +119,17 @@ def send_message2(companyId, groupId, message):
          {
                  'attachmentId': 'slct1',
                  'viewType': 'text',
-                 'title': messages().ans[0][1] + "さん",
+                 'title': ans[0][1] + "さん",
                  'text': wr[0]
         },{
                  'attachmentId': 'slct2',
                  'viewType': 'text',
-                 'title': messages().ans[1][1] + "さん",
+                 'title': ans[1][1] + "さん",
                  'text':  wr[1]
          },{
                  'attachmentId': 'slct3',
                  'viewType': 'text',
-                 'title': messages().ans[2][1] + "さん",
+                 'title': ans[2][1] + "さん",
                  'text':  wr[2]
          }],
     }
