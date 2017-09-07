@@ -15,12 +15,12 @@ PASSING_PRECISION = 93
 
 # 全てのファイルのリストを取得
 def get_all_files(directory):
-    for root, dirs, files in os.walk(directory):
-        for file in files:
-            filename = sys.path.basename(file)
+    for root, dirs, fpaths in os.walk(directory):
+        for path in fpaths:
+            filename = os.path.basename(path)
             m = re.match(r'\d+\.mes\.utf', filename)
             if m:
-                yield os.path.join(root, file)
+                yield os.path.join(root, path)
 
 # ファイルから文章を返す
 def read_document(path):
