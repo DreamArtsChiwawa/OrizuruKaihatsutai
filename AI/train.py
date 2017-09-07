@@ -9,7 +9,7 @@ import re
 from gensim import models
 from gensim.models.doc2vec import LabeledSentence
 
-INPUT_DOC_DIR = '../staff_wr_copy'
+INPUT_DOC_DIR = '../../staff_wr'
 OUTPUT_MODEL = 'doc2vec.model'
 PASSING_PRECISION = 93
 
@@ -32,16 +32,17 @@ def trim_doc(doc):
     extracted_text = re.sub(r'(-|=)', '', doc)
 
     # Request-Highlight間を抽出
-    pattern = r"(問題|課題|トラブル|Request)([\s\S]*?)Highlight"
+    pattern = r"(Request|■課題)([\s\S]*?)(Highlight|Hilight|Activity)"
     c = re.compile(pattern, re.IGNORECASE)
     m1 = c.search(extracted_text)
     if m1:    
         tmp_text = m1.group(2)
+        tmp_text = re.sub(r'.*Request', '', tmp_text)
     else:
         tmp_text = extracted_text
 
     # メールの件名部分を抽出
-    m2 = re.search(r"Subject:([\s\S]*?)(Message|Cc)", extracted_text)     
+    m2 = re.search(r"Subject:([\s\S]*?)\n", extracted_text)     
     if m2:
         tmp_name = m2.group(1)
     else:
@@ -75,9 +76,17 @@ def split_into_words(doc, name=''):
 
 # ファイルから単語のリストを取得
 def corpus_to_sentences(corpus):
-    docs = [read_document(x) for x in corpus]
+    #docs = [read_document(x) for x in corpus]
+    docs = []
+    for i, x in enumerate(corpus):
+        sys.stdout.write( \
+            '\rファイル読み込み中 {} / {} files'.format(i+1, len(corpus)))
+        docs.append(read_document(x))
+    print()
+
     for idx, (doc, name) in enumerate(zip(docs, corpus)):
-        sys.stdout.write('\r前処理中 {} / {}'.format(idx, len(corpus)))
+        sys.stdout.write( \
+            '\r前処理中 {} / {} documents'.format(idx+1, len(corpus)))
         words, name = split_into_words(doc, name)
        # name += "testest"
         if len(words) > 0:
@@ -85,27 +94,28 @@ def corpus_to_sentences(corpus):
 
 # 学習
 def train(sentences):
-    model = models.Doc2Vec(size=300, alpha=0.0015, window=8, dm=1, sample=1e-6, min_count=1, workers=4)
+    model = models.Doc2Vec(size=500, alpha=0.0015, sample=1e-4, min_count=1, workers=4)
 
     model.build_vocab(sentences)
-    for x in range(30):
-        print(x)
+    epoch = 30
+    for x in range(epoch):
+        sys.stdout.write('\r学習中 {} / {} epochs'.format(x+1, epoch))
         model.train(sentences, total_examples=model.corpus_count, epochs=model.iter)
         ranks = []
-       # for doc_id in range(100):
-       #     inferred_vector = model.infer_vector(sentences[doc_id].words)
-       #     sims = model.docvecs.most_similar([inferred_vector], topn=len(model.docvecs))
-       #     rank = [docid for docid, sim in sims].index(sentences[doc_id].tags[0])
-       #     ranks.append(rank)
-       # print(collections.Counter(ranks))
-       # if collections.Counter(ranks)[0] >= PASSING_PRECISION:
-       #     break
+        for doc_id in range(100):
+            inferred_vector = model.infer_vector(sentences[doc_id].words)
+            sims = model.docvecs.most_similar([inferred_vector], topn=len(model.docvecs))
+            rank = [docid for docid, sim in sims].index(sentences[doc_id].tags[0])
+            ranks.append(rank)
+        if collections.Counter(ranks)[0] >= PASSING_PRECISION:
+            break
     return model
 
 if __name__ == '__main__':
     print("ディレクトリ探索中")
     corpus = list(get_all_files(INPUT_DOC_DIR))
-    print("ファイル読み込み中")
     sentences = list(corpus_to_sentences(corpus))
+    print()
     model = train(sentences)
+    print()
     model.save(OUTPUT_MODEL)
