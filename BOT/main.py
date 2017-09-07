@@ -18,8 +18,6 @@ def helloPage():
 
 @app.route('/messages', methods=['POST'])
 def messages():
-        if "おしえて" in message or "教えて" in message:
-            tell_me(companyId, groupId, userName)
         if is_request_valid(request):
             body = request.get_json(silent=True)
             companyId = body['companyId']
@@ -29,7 +27,10 @@ def messages():
             userName = msgObj['createdUserName']
             ans = search.search_similar_docs(messageText,3)
             sndMsgText = '1. ' + ans[0][1] + "さん" + '\n2. ' + ans[1][1] + "さん" + '\n3. ' + ans[2][1] + "さん"
-            send_message(companyId, groupId, userName + 'さん、週報を書いてくれてありがとう！あなたが抱えている課題は以前、この人も抱えていたみたいだから聞いてみると解決するかもしれないよ。\n' + sndMsgText)
+            if "tell" in messageText and "me" in messageText:
+                tell_me(companyId, groupId, userName)
+            else:
+                send_message(companyId, groupId, userName + 'さん、週報を書いてくれてありがとう！あなたが抱えている課題は以前、この人も抱えていたみたいだから聞いてみると解決するかもしれないよ。\n' + sndMsgText)
 
 
             return "OK"
