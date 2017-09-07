@@ -27,11 +27,9 @@ def messages():
             userName = msgObj['createdUserName']
             ans = search.search_similar_docs(messageText,3)
             sndMsgText = '1. ' + ans[0][1] + "さん" + '\n2. ' + ans[1][1] + "さん" + '\n3. ' + ans[2][1] + "さん"
-#            print(messageText)
-            if "/tell_me" in messageText or "/tell me" in messageText:
-                print("called tell_me()")
-                tell_me(companyId, groupId, userName)
-            else:
+            if "/tell-me" in messageText and "/tell_me" in messageText and "/tell me" in messageText:
+                send_message(companyId,groupId,userName + "telme--------------------------------")
+            elif "Date" in messageText and "From" in messageText and "Subject" in messageText:
                 send_message(companyId, groupId, userName + 'さん、週報を書いてくれてありがとう！あなたが抱えている課題は以前、この人も抱えていたみたいだから聞いてみると解決するかもしれないよ。\n' + sndMsgText)
 
 
@@ -90,18 +88,18 @@ def read_wr(path):
         wr_text += f.read()
     return wr_text
 
-def tell_me(companyId, groupId, message):
-    body = request.get_json(silent=True)
-    msgObj = body['message']
-    messageText = msgObj['text']
-    url = 'https://{0}.chiwawa.one/api/public/v1/groups/{1}/messages'.format(companyId, groupId)
+# def tell_me(companyId, groupId, message):
+#     body = request.get_json(silent=True)
+#     msgObj = body['message']
+#     messageText = msgObj['text']
+#     url = 'https://{0}.chiwawa.one/api/public/v1/groups/{1}/messages'.format(companyId, groupId)
 
-    headers = {
-        'Content-Type': 'application/json',
-        'X-Chiwawa-API-Token': env['CHIWAWA_API_TOKEN']
-    }
-    requests.post(url, headers=headers)
-    return "tell me ok"
+#     headers = {
+#         'Content-Type': 'application/json',
+#         'X-Chiwawa-API-Token': env['CHIWAWA_API_TOKEN']
+#     }
+#     requests.post(url, headers=headers)
+#     return "tell me ok"
 
 
 if __name__ == '__main__':
