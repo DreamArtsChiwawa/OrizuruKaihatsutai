@@ -96,8 +96,8 @@ def send_message2(companyId, groupId, message):
     body = request.get_json(silent=True)
     msgObj = body['message']
     messageText = msgObj['text']
-    msg = get_problem(messageText,2)
-    ans = search.search_similar_docs(msg,3)
+    # msg = get_problem(messageText,2)
+    # ans = search.search_similar_docs(msg,3)
     url = 'https://{0}.chiwawa.one/api/public/v1/groups/{1}/messages'.format(companyId, groupId)
 
     wr = []
@@ -115,17 +115,17 @@ def send_message2(companyId, groupId, message):
          {
                  'attachmentId': 'slct1',
                  'viewType': 'text',
-                 'title': ans[0][1] + "さん",
+                 'title': messages().ans[0][1] + "さん",
                  'text': wr[0]
         },{
                  'attachmentId': 'slct2',
                  'viewType': 'text',
-                 'title': ans[1][1] + "さん",
+                 'title': messages().ans[1][1] + "さん",
                  'text':  wr[1]
          },{
                  'attachmentId': 'slct3',
                  'viewType': 'text',
-                 'title': ans[2][1] + "さん",
+                 'title': messages().ans[2][1] + "さん",
                  'text':  wr[2]
          }],
     }
