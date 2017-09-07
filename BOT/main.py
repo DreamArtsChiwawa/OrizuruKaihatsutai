@@ -28,7 +28,7 @@ def messages():
             ans = search.search_similar_docs(messageText,3)
             sndMsgText = '1. ' + ans[0][1] + "さん" + '\n2. ' + ans[1][1] + "さん" + '\n3. ' + ans[2][1] + "さん"
             print(messageText)
-            if "tell" in messageText and "me" in messageText:
+            if ("tell" in messageText) and ("me" in messageText)
                 "called tell_me()"
                 tell_me(companyId, groupId, userName)
             else:
