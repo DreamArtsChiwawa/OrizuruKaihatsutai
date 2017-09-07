@@ -98,28 +98,8 @@ def tell_me(companyId, groupId, message):
         'Content-Type': 'application/json',
         'X-Chiwawa-API-Token': env['CHIWAWA_API_TOKEN']
     }
-    # content = {
-    #     'text' : message,
-    #     'attachments': [
-    #      {
-    #              'attachmentId': 'slct1',
-    #              'viewType': 'text',
-    #              'title': ans[0][1] + "さん",
-    #              'text': wr[0]
-    #     },{
-    #              'attachmentId': 'slct2',
-    #              'viewType': 'text',
-    #              'title': ans[1][1] + "さん",
-    #              'text':  wr[1]
-    #      },{
-    #              'attachmentId': 'slct3',
-    #              'viewType': 'text',
-    #              'title': ans[2][1] + "さん",
-    #              'text':  wr[2]
-    #      }],
-    # }
     requests.post(url, headers=headers)
-    return ok
+    return "tell me ok"
 
 
 if __name__ == '__main__':
