@@ -17,7 +17,7 @@ PASSING_PRECISION = 93
 def get_all_files(directory):
     for root, dirs, files in os.walk(directory):
         for file in files:
-            filename = os.path.basename(path)
+            filename = sys.path.basename(path)
             m = re.match(r'\d+\.mes\.utf', filename)
             if m:
                 yield os.path.join(root, file)
@@ -39,20 +39,20 @@ def trim_doc(doc):
         tmp_text = extracted_text
 
     # メールの件名部分を抽出
-    m2 = re.search(r"Subject:([\s\S]*?)(Message|Cc)", extracted_text)     
+    m2 = re.search(r"Subject:([\s\S]*?)(Message|Cc)", extracted_text)
     if m2:
         tmp_name = m2.group(1)
     else:
         tmp_name = ''
 
     # 件名部分から日付を取り除く(部署＋名前の抽出)
-    m3 = re.search(r"\d{4}.?\d{,2}.?\d{,2}.?(.*)-?", tmp_name)  
+    m3 = re.search(r"\d{4}.?\d{,2}.?\d{,2}.?(.*)-?", tmp_name)
     if m3:
         tmp_name = m3.group(1)
 
     # 部署＋名前から空白を取り除く
-    tmp_name = re.sub(r'\s', "", tmp_name)     
-    
+    tmp_name = re.sub(r'\s', "", tmp_name)
+
     return (tmp_text, tmp_name)
 
 
