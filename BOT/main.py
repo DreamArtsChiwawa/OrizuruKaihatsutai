@@ -28,7 +28,7 @@ def messages():
             ans = search.search_similar_docs(messageText,3)
             sndMsgText = '1. ' + ans[0][1] + "さん" + '\n2. ' + ans[1][1] + "さん" + '\n3. ' + ans[2][1] + "さん"
             if "/tell-me" in messageText and "/tell_me" in messageText and "/tell me" in messageText:
-                send_message(companyId,groupId,userName + "telme--------------------------------")
+                send_message(companyId,groupId,userName + "telme--------------------------------telme--------------------------------telme--------------------------------telme--------------------------------")
             elif "Date" in messageText and "From" in messageText and "Subject" in messageText:
                 send_message(companyId, groupId, userName + 'さん、週報を書いてくれてありがとう！あなたが抱えている課題は以前、この人も抱えていたみたいだから聞いてみると解決するかもしれないよ。\n' + sndMsgText)
 
