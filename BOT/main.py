@@ -29,14 +29,14 @@ def messages():
                 if "/tell me" in messageText:
                     msg = get_problem(messageText,2)
                     print(msg)
-                    ans = search.search_similar_docs(msg)
+                    ans = search.search_similar_docs(msg,3)
                     sndMsgText = '1. ' + ans[0][1] + "さん" + '\n2. ' + ans[1][1] + "さん" + '\n3. ' + ans[2][1] + "さん"
                     send_message(companyId, groupId, userName + 'さん、その問題解決するかも!!\n' + sndMsgText)
                     print("/tell me")
                 else:
                     msg = get_problem(messageText,1)
                     print(msg)
-                    ans = search.search_similar_docs(msg)
+                    ans = search.search_similar_docs(msg,3)
                     sndMsgText = '1. ' + ans[0][1] + "さん" + '\n2. ' + ans[1][1] + "さん" + '\n3. ' + ans[2][1] + "さん"
                     send_message(companyId, groupId, userName + 'さん、その問題解決するかも!!\n' + sndMsgText)
                     print("/tell_me")
