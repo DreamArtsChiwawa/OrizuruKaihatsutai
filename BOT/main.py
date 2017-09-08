@@ -56,10 +56,29 @@ def send_message(companyId, groupId, message):
     body = request.get_json(silent=True)
     msgObj = body['message']
     messageText = msgObj['text']
-    ans = search.search_similar_docs(messageText,3)
+    ans = search.search_similar_docs(messageText,30)
     url = 'https://{0}.chiwawa.one/api/public/v1/groups/{1}/messages'.format(companyId, groupId)
 
     wr = []
+    rep = []
+    # 返答する内容を見定める
+    for i in range(len(ans)):
+        repcnt = 0
+        for j in range(i):
+            if i != j:
+                if ans[i][1] == ans[j][1]:
+                    repcnt+=1
+        if repcnt == 0:
+            rep.append(i)
+
+    print(rep)
+    
+    # 3以下の場合
+    if len(rep) < 3:
+        max = len(rep)
+    else:
+        max = 3
+            
     for i in range(len(ans)):
         wr_path = ans[i][0]
         wr.append(read_wr(wr_path))
@@ -74,17 +93,19 @@ def send_message(companyId, groupId, message):
          {
                  'attachmentId': 'slct1',
                  'viewType': 'text',
-                 'title': ans[0][1] + "さん",
-                 'text': wr[0]
+                 'title': ans[rep[0]][1] + "さん",
+                 'text': wr[rep[0]]
         },{
                  'attachmentId': 'slct2',
                  'viewType': 'text',
-                 'title': ans[1][1] + "さん",
-                 'text':  wr[1]
-         },{                 'attachmentId': 'slct3',
+                 'title': ans[rep[1]][1] + "さん",
+                 'text':  wr[rep[1]]
+         },{                 
+                 'attachmentId': 'slct3',
                  'viewType': 'text',
-                 'title': ans[2][1] + "さん",
-                 'text':  wr[2]
+                 'title': ans[rep[2]][1] + "さん",
+                 'text':  wr[rep[2]]
+
          }],
     }
     requests.post(url, headers=headers, data=json.dumps(content))

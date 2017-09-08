@@ -9,7 +9,7 @@ import re
 from gensim import models
 from gensim.models.doc2vec import LabeledSentence
 
-INPUT_DOC_DIR = '../../staff_wr'
+INPUT_DOC_DIR = '../../staff_wr_rev2'
 OUTPUT_MODEL = 'doc2vec.model'
 PASSING_PRECISION = 93
 
